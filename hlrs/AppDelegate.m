@@ -29,7 +29,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-
+//
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
     {
         pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0,__MainScreen_Height-60,__MainScreen_Width-40,20)];
@@ -118,10 +118,12 @@
         
         [self.window addSubview:m_scrollerview];
         [self.window addSubview:pageControl];
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        self.window.rootViewController=self.pageControl;
         
-      [self initfirstpage];
+         [self.window makeKeyAndVisible];
         
-//        [self.window makeKeyAndVisible];
+ 
     }
     else { 
         
@@ -163,9 +165,9 @@
 
 - (void)gobtntouched:(id)sender
 {
+   
     
-    
-    if (![self.window.rootViewController isKindOfClass:[UINavigationController class]])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
     {
         /*UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.window.rootViewController];
         navigationController.navigationBarHidden = YES;
@@ -186,7 +188,7 @@ else
 }
 /*
  
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
+    if()
     {
         Class VcClass = [[NSBundle mainBundle] classNamed:@"ViewController"];
         if (VcClass != NULL)
